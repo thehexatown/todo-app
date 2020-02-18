@@ -41,13 +41,3 @@ target 'TodoList' do
 
   use_native_modules!
 end
-
-target 'TodoList-tvOS' do
-  # Pods for TodoList-tvOS
-
-  target 'TodoList-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-end
