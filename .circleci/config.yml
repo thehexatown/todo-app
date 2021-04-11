@@ -1,0 +1,37 @@
+version: 2.1
+
+orbs:
+  react-native: react-native-community/react-native@5.1.0
+
+jobs:
+  analyse_js:
+    executor: rn/linux_js
+    steps:
+      - attach_workspace:
+          at: .
+      - rn/yarn_install
+      - run:
+          command: yarn eslint
+          name: Run ESLint
+      - run:
+          command: yarn flow
+          name: Flow
+      - run:
+          command: yarn jest
+          name: Jest
+  checkout_code:
+    executor: rn/linux_js
+    steps:
+      - checkout
+      - persist_to_workspace:
+          paths: .
+          root: .
+  fastlane_release:
+    executor: rn/linux_js
+    steps:
+      - attach_workspace:
+          at: .
+      - rn/yarn_install
+      - run:
+          command: bundle exec fastlane android release
+          name: Run Fastlane
